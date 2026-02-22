@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Canal de Denúncias</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Painel Administrativo</h1>
+            <p>Gestão de Denúncias - <span id="nomeUsuario"></span></p>
+            <button id="btnLogout" class="btn btn-secondary" style="margin-top: 1rem;">Sair</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="stats-grid" id="estatisticas"></section>
+
+        <section style="margin: 2rem 0;">
+            <div class="card">
+                <h2>Filtros</h2>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <select id="filtroStatus">
+                        <option value="">Todos os Status</option>
+                        <option value="aberta">Aberta</option>
+                        <option value="em_analise">Em Análise</option>
+                        <option value="em_investigacao">Em Investigação</option>
+                        <option value="concluida">Concluída</option>
+                        <option value="arquivada">Arquivada</option>
+                    </select>
+
+                    <select id="filtroTipo">
+                        <option value="">Todos os Tipos</option>
+                        <option value="assedio_moral">Assédio Moral</option>
+                        <option value="assedio_sexual">Assédio Sexual</option>
+                        <option value="discriminacao">Discriminação</option>
+                        <option value="condicao_insegura">Condição Insegura</option>
+                        <option value="risco_saude">Risco à Saúde</option>
+                        <option value="outro">Outro</option>
+                    </select>
+
+                    <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <h2>Denúncias</h2>
+                <div id="listaDenuncias"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Canal de Denúncias - CIPA</p>
+        </div>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

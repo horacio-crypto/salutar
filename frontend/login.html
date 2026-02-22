@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Canal de Denúncias</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Área Administrativa</h1>
+            <p>Acesso restrito para CIPA, RH e Gestores</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card" style="max-width: 500px; margin: 2rem auto;">
+            <div id="mensagem"></div>
+            
+            <form id="formLogin">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="senha" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+            </form>
+
+            <div style="margin-top: 1rem; text-align: center;">
+                <a href="index.html">Voltar para página inicial</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Canal de Denúncias - CIPA</p>
+        </div>
+    </footer>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

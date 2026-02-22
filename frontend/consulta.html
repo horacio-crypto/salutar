@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Protocolo - Canal de Denúncias</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Consultar Protocolo</h1>
+            <p>Acompanhe o status da sua denúncia</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+            <form id="formConsulta">
+                <div class="form-group">
+                    <label>Número do Protocolo</label>
+                    <input type="text" id="protocolo" placeholder="Ex: DEN202402170001" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Consultar</button>
+                <a href="index.html" class="btn btn-secondary">Voltar</a>
+            </form>
+
+            <div id="resultado" style="margin-top: 2rem;"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Canal de Denúncias - CIPA</p>
+        </div>
+    </footer>
+
+    <script src="js/consulta.js"></script>
+</body>
+</html>
