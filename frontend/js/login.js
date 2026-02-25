@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000/api'
+  : '/api';
 
 document.getElementById('formLogin').addEventListener('submit', async function(e) {
     e.preventDefault();
