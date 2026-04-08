@@ -3,36 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar Protocolo - Canal de Denúncias</title>
+    <title>SALUTAR - Consultar Protocolo</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Consultar Protocolo</h1>
-            <p>Acompanhe o status da sua denúncia</p>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Consultar Protocolo</h1>
+                <p>Acompanhe o status da sua denúncia</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary btn-sm">← Voltar</a>
+            </div>
         </div>
     </header>
 
     <main class="container">
-        <div class="card" style="max-width: 600px; margin: 2rem auto;">
+        <div class="form-card" style="max-width: 600px;">
+            <div class="form-title">Consultar Denúncia</div>
+            <div class="form-subtitle">Digite o número do protocolo recebido no momento do registro.</div>
+
             <form id="formConsulta">
                 <div class="form-group">
                     <label>Número do Protocolo</label>
-                    <input type="text" id="protocolo" placeholder="Ex: DEN202402170001" required>
+                    <input type="text" id="protocolo" placeholder="Ex: DEN202402170001" required
+                        style="font-family: monospace; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase;">
                 </div>
-
-                <button type="submit" class="btn btn-primary">Consultar</button>
-                <a href="index.html" class="btn btn-secondary">Voltar</a>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">🔍 Consultar</button>
+                    <a href="index.html" class="btn btn-secondary">Voltar</a>
+                </div>
             </form>
 
-            <div id="resultado" style="margin-top: 2rem;"></div>
+            <div id="resultado"></div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Canal de Denúncias - CIPA</p>
+            <p><span>SALUTAR</span> — Canal de Denúncias</p>
         </div>
     </footer>
 

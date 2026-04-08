@@ -3,60 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Canal de Denúncias</title>
+    <title>SALUTAR - Painel Administrativo</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Painel Administrativo</h1>
-            <p>Gestão de Denúncias - <span id="nomeUsuario"></span></p>
-            <button id="btnLogout" class="btn btn-secondary" style="margin-top: 1rem;">Sair</button>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Painel Administrativo</h1>
+                <p>Olá, <span id="nomeUsuario"></span></p>
+            </div>
+            <div class="header-actions">
+                <button id="btnLogout" class="btn btn-secondary btn-sm">Sair</button>
+            </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="stats-grid" id="estatisticas"></section>
+        <div class="dashboard-header">
+            <h2>Visão Geral</h2>
+            <span id="dataAtual" style="color: var(--secondary); font-size: 0.85rem;"></span>
+        </div>
 
-        <section style="margin: 2rem 0;">
-            <div class="card">
-                <h2>Filtros</h2>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <select id="filtroStatus">
-                        <option value="">Todos os Status</option>
-                        <option value="aberta">Aberta</option>
-                        <option value="em_analise">Em Análise</option>
-                        <option value="em_investigacao">Em Investigação</option>
-                        <option value="concluida">Concluída</option>
-                        <option value="arquivada">Arquivada</option>
-                    </select>
+        <section class="stats-grid" id="estatisticas">
+            <div class="stat-card skeleton" style="height: 110px;"></div>
+            <div class="stat-card skeleton" style="height: 110px;"></div>
+            <div class="stat-card skeleton" style="height: 110px;"></div>
+            <div class="stat-card skeleton" style="height: 110px;"></div>
+        </section>
 
-                    <select id="filtroTipo">
-                        <option value="">Todos os Tipos</option>
-                        <option value="assedio_moral">Assédio Moral</option>
-                        <option value="assedio_sexual">Assédio Sexual</option>
-                        <option value="discriminacao">Discriminação</option>
-                        <option value="condicao_insegura">Condição Insegura</option>
-                        <option value="risco_saude">Risco à Saúde</option>
-                        <option value="outro">Outro</option>
-                    </select>
+        <div class="filters-card">
+            <label>Filtrar por:</label>
+            <select id="filtroStatus">
+                <option value="">Todos os Status</option>
+                <option value="aberta">Aberta</option>
+                <option value="em_analise">Em Análise</option>
+                <option value="em_investigacao">Em Investigação</option>
+                <option value="concluida">Concluída</option>
+                <option value="arquivada">Arquivada</option>
+            </select>
+            <select id="filtroTipo">
+                <option value="">Todos os Tipos</option>
+                <option value="assedio_moral">Assédio Moral</option>
+                <option value="assedio_sexual">Assédio Sexual</option>
+                <option value="discriminacao">Discriminação</option>
+                <option value="condicao_insegura">Condição Insegura</option>
+                <option value="risco_saude">Risco à Saúde</option>
+                <option value="outro">Outro</option>
+            </select>
+            <button id="btnFiltrar" class="btn btn-primary btn-sm">Aplicar</button>
+            <button id="btnLimpar" class="btn btn-secondary btn-sm">Limpar</button>
+        </div>
 
-                    <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+        <div style="background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden;">
+            <div style="padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                <h2 style="font-size: 1rem; font-weight: 600; color: var(--dark);">Denúncias</h2>
+                <span id="totalFiltrado" style="font-size: 0.8rem; color: var(--secondary);"></span>
+            </div>
+            <div class="table-wrapper">
+                <div id="listaDenuncias">
+                    <div class="empty-state">
+                        <div class="empty-icon">📋</div>
+                        <p>Carregando denúncias...</p>
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <section>
-            <div class="card">
-                <h2>Denúncias</h2>
-                <div id="listaDenuncias"></div>
-            </div>
-        </section>
+        </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Canal de Denúncias - CIPA</p>
+            <p><span>SALUTAR</span> — Canal de Denúncias</p>
         </div>
     </footer>
 

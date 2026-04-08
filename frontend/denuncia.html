@@ -3,92 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Denúncia - Canal de Denúncias</title>
+    <title>SALUTAR - Nova Denúncia</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Nova Denúncia</h1>
-            <p>Preencha o formulário abaixo de forma segura</p>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Nova Denúncia</h1>
+                <p>Preencha o formulário de forma segura</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary btn-sm">← Voltar</a>
+            </div>
         </div>
     </header>
 
     <main class="container">
-        <div class="card" style="max-width: 800px; margin: 2rem auto;">
-            <div id="mensagem"></div>
-            
+        <div id="mensagem"></div>
+
+        <div class="form-card">
+            <div class="form-title">Registrar Ocorrência</div>
+            <div class="form-subtitle">Todos os campos marcados com * são obrigatórios. Sua denúncia será tratada com total confidencialidade.</div>
+
             <form id="formDenuncia">
-                <div class="form-group">
-                    <label>Código da Empresa *</label>
-                    <input type="number" id="empresa_id" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de Denúncia *</label>
-                    <select id="tipo" required>
-                        <option value="">Selecione...</option>
-                        <option value="assedio_moral">Assédio Moral</option>
-                        <option value="assedio_sexual">Assédio Sexual</option>
-                        <option value="discriminacao">Discriminação</option>
-                        <option value="condicao_insegura">Condição Insegura de Trabalho</option>
-                        <option value="risco_saude">Risco à Saúde</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Descrição da Ocorrência *</label>
-                    <textarea id="descricao" required placeholder="Descreva detalhadamente o ocorrido..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Setor Envolvido</label>
-                    <input type="text" id="setor_envolvido" placeholder="Ex: Produção, Administrativo...">
-                </div>
-
-                <div class="form-group">
-                    <label>Data da Ocorrência</label>
-                    <input type="date" id="data_ocorrencia">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-check">
-                        <input type="checkbox" id="anonima" checked>
-                        <label for="anonima">Denúncia Anônima</label>
-                    </div>
-                </div>
-
-                <div id="dadosIdentificacao" style="display: none;">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label>Nome Completo</label>
-                        <input type="text" id="denunciante_nome">
+                        <label>Código da Empresa *</label>
+                        <input type="number" id="empresa_id" placeholder="Ex: 1" required>
                     </div>
 
                     <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="denunciante_email">
+                        <label>Tipo de Denúncia *</label>
+                        <select id="tipo" required>
+                            <option value="">Selecione o tipo...</option>
+                            <option value="assedio_moral">Assédio Moral</option>
+                            <option value="assedio_sexual">Assédio Sexual</option>
+                            <option value="discriminacao">Discriminação</option>
+                            <option value="condicao_insegura">Condição Insegura de Trabalho</option>
+                            <option value="risco_saude">Risco à Saúde</option>
+                            <option value="outro">Outro</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Telefone</label>
-                        <input type="tel" id="denunciante_telefone">
+                        <label>Setor Envolvido</label>
+                        <input type="text" id="setor_envolvido" placeholder="Ex: Produção, Administrativo...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data da Ocorrência</label>
+                        <input type="date" id="data_ocorrencia">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Descrição da Ocorrência *</label>
+                        <textarea id="descricao" required placeholder="Descreva detalhadamente o ocorrido, incluindo datas, locais e pessoas envolvidas..."></textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <div class="form-check">
+                            <input type="checkbox" id="anonima" checked>
+                            <label for="anonima">Quero fazer esta denúncia de forma anônima</label>
+                        </div>
                     </div>
                 </div>
 
-                <div class="alert alert-info">
-                    <strong>Importante:</strong> Após o envio, você receberá um protocolo para acompanhar sua denúncia.
+                <div id="dadosIdentificacao" class="identificacao-section" style="display:none;">
+                    <div class="section-label">Dados de identificação (opcional)</div>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label>Nome Completo</label>
+                            <input type="text" id="denunciante_nome" placeholder="Seu nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="denunciante_email" placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefone</label>
+                            <input type="tel" id="denunciante_telefone" placeholder="(00) 00000-0000">
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Enviar Denúncia</button>
-                <a href="index.html" class="btn btn-secondary">Cancelar</a>
+                <div class="alert alert-info" style="margin-top: 1.5rem;">
+                    💡 Após o envio, você receberá um <strong>protocolo único</strong> para acompanhar o andamento da sua denúncia.
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enviar Denúncia</button>
+                    <a href="index.html" class="btn btn-secondary">Cancelar</a>
+                </div>
             </form>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Canal de Denúncias - CIPA</p>
+            <p><span>SALUTAR</span> — Canal de Denúncias</p>
         </div>
     </footer>
 

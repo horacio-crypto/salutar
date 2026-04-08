@@ -3,84 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Canal de Denúncias - CIPA</title>
+    <title>SALUTAR - Canal de Denúncias</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>Canal de Denúncias</h1>
-            <p>Ambiente seguro e confidencial para relatos</p>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Canal de Denúncias</h1>
+                <p>Ambiente seguro e confidencial</p>
+            </div>
+            <div class="header-actions">
+                <a href="login.html" class="btn btn-outline btn-sm">Área Admin</a>
+            </div>
         </div>
     </header>
 
     <main class="container">
         <section class="hero">
-            <h2>Sua voz importa</h2>
-            <p>Este canal foi criado para garantir um ambiente de trabalho seguro, ético e saudável. Você pode fazer uma denúncia de forma anônima ou identificada.</p>
+            <div class="hero-badge">🔒 Canal Seguro e Confidencial</div>
+            <h2>Sua voz importa.<br><span>Fale com segurança.</span></h2>
+            <p>Este canal foi criado para garantir um ambiente de trabalho seguro, ético e saudável. Você pode registrar uma ocorrência de forma anônima ou identificada.</p>
+            <a href="denuncia.html" class="btn btn-primary">Fazer uma Denúncia</a>
+            <a href="consulta.html" class="btn btn-secondary" style="margin-left: 0.5rem;">Consultar Protocolo</a>
         </section>
 
         <section class="actions">
             <div class="card">
+                <div class="card-icon">📝</div>
                 <h3>Nova Denúncia</h3>
-                <p>Registre uma ocorrência de forma segura e confidencial</p>
+                <p>Registre uma ocorrência de forma segura e confidencial. Anônima ou identificada.</p>
                 <a href="denuncia.html" class="btn btn-primary">Fazer Denúncia</a>
             </div>
-
             <div class="card">
+                <div class="card-icon">🔍</div>
                 <h3>Consultar Protocolo</h3>
-                <p>Acompanhe o status da sua denúncia</p>
+                <p>Acompanhe em tempo real o status e andamento da sua denúncia.</p>
                 <a href="consulta.html" class="btn btn-secondary">Consultar</a>
             </div>
-
             <div class="card">
+                <div class="card-icon">🛡️</div>
                 <h3>Área Administrativa</h3>
-                <p>Acesso restrito para CIPA, RH e gestores</p>
-                <a href="login.html" class="btn btn-secondary">Login</a>
+                <p>Acesso restrito à organização para gestão e análise de ocorrências.</p>
+                <a href="login.html" class="btn btn-secondary">Acessar</a>
             </div>
         </section>
 
-        <section class="info">
-            <h3>Tipos de denúncias aceitas</h3>
-            <ul>
-                <li>Assédio moral ou sexual</li>
-                <li>Discriminação</li>
-                <li>Condições inseguras de trabalho</li>
-                <li>Riscos à saúde física ou mental</li>
-                <li>Violações às normas de segurança</li>
-            </ul>
-        </section>
+        <div class="info-section">
+            <div class="info">
+                <h3 class="section-title">Tipos de denúncias aceitas</h3>
+                <ul>
+                    <li>Assédio moral ou organizacional</li>
+                    <li>Assédio sexual</li>
+                    <li>Discriminação</li>
+                    <li>Condições inseguras de trabalho</li>
+                    <li>Riscos à saúde física ou mental</li>
+                    <li>Violações às normas de segurança</li>
+                </ul>
+            </div>
 
-        <section class="garantias">
-            <h3>Suas garantias</h3>
-            <div class="garantias-grid">
-                <div class="garantia-item">
-                    <span class="icon">🔒</span>
-                    <h4>Confidencialidade</h4>
-                    <p>Seus dados são protegidos</p>
-                </div>
-                <div class="garantia-item">
-                    <span class="icon">👤</span>
-                    <h4>Anonimato</h4>
-                    <p>Opção de denúncia anônima</p>
-                </div>
-                <div class="garantia-item">
-                    <span class="icon">⚖️</span>
-                    <h4>Conformidade LGPD</h4>
-                    <p>Tratamento adequado de dados</p>
-                </div>
-                <div class="garantia-item">
-                    <span class="icon">📋</span>
-                    <h4>Acompanhamento</h4>
-                    <p>Protocolo para consulta</p>
+            <div class="garantias">
+                <h3 class="section-title">Suas garantias</h3>
+                <div class="garantias-grid">
+                    <div class="garantia-item">
+                        <span class="icon">🔒</span>
+                        <div>
+                            <h4>Confidencialidade</h4>
+                            <p>Seus dados são protegidos</p>
+                        </div>
+                    </div>
+                    <div class="garantia-item">
+                        <span class="icon">👤</span>
+                        <div>
+                            <h4>Anonimato</h4>
+                            <p>Opção de denúncia anônima</p>
+                        </div>
+                    </div>
+                    <div class="garantia-item">
+                        <span class="icon">⚖️</span>
+                        <div>
+                            <h4>Conformidade LGPD</h4>
+                            <p>Tratamento adequado de dados</p>
+                        </div>
+                    </div>
+                    <div class="garantia-item">
+                        <span class="icon">📋</span>
+                        <div>
+                            <h4>Acompanhamento</h4>
+                            <p>Protocolo para consulta</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Canal de Denúncias - CIPA | Projeto Integrador Univesp</p>
+            <p><span>SALUTAR</span> — Canal de Denúncias</p>
         </div>
     </footer>
 </body>

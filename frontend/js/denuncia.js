@@ -1,24 +1,28 @@
-const API_URL = window.location.hostname === 'localhost' 
+const API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:3000/api'
   : '/api';
 
-document.getElementById('anonima').addEventListener('change', function() {
-    const dadosIdentificacao = document.getElementById('dadosIdentificacao');
-    dadosIdentificacao.style.display = this.checked ? 'none' : 'block';
+document.getElementById('anonima').addEventListener('change', function () {
+    const secao = document.getElementById('dadosIdentificacao');
+    secao.style.display = this.checked ? 'none' : 'block';
 });
 
-document.getElementById('formDenuncia').addEventListener('submit', async function(e) {
+document.getElementById('formDenuncia').addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    const btn = this.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+
     const anonima = document.getElementById('anonima').checked;
-    
+
     const dados = {
         empresa_id: parseInt(document.getElementById('empresa_id').value),
         tipo: document.getElementById('tipo').value,
         descricao: document.getElementById('descricao').value,
         setor_envolvido: document.getElementById('setor_envolvido').value,
         data_ocorrencia: document.getElementById('data_ocorrencia').value,
-        anonima: anonima,
+        anonima,
         denunciante_nome: anonima ? null : document.getElementById('denunciante_nome').value,
         denunciante_email: anonima ? null : document.getElementById('denunciante_email').value,
         denunciante_telefone: anonima ? null : document.getElementById('denunciante_telefone').value
@@ -27,33 +31,36 @@ document.getElementById('formDenuncia').addEventListener('submit', async functio
     try {
         const response = await fetch(`${API_URL}/denuncias`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dados)
         });
 
         const resultado = await response.json();
 
         if (response.ok) {
-            mostrarMensagem(`
+            document.getElementById('mensagem').innerHTML = `
                 <div class="alert alert-success">
-                    <h3>Denúncia registrada com sucesso!</h3>
-                    <p><strong>Protocolo:</strong> ${resultado.protocolo}</p>
-                    <p>Guarde este protocolo para acompanhar sua denúncia.</p>
-                    <a href="consulta.html" class="btn btn-primary">Consultar Status</a>
+                    <div>
+                        <strong>✅ Denúncia registrada com sucesso!</strong><br>
+                        <span style="font-size:0.85rem;">Guarde o protocolo abaixo para acompanhar sua denúncia.</span>
+                    </div>
                 </div>
-            `);
-            document.getElementById('formDenuncia').reset();
+                <div style="background: var(--white); border: 2px solid var(--primary); border-radius: var(--radius); padding: 1.5rem; text-align: center; margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.8rem; color: var(--secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Número do Protocolo</p>
+                    <p style="font-size: 1.8rem; font-weight: 700; color: var(--primary); font-family: monospace; letter-spacing: 2px;">${resultado.protocolo}</p>
+                    <a href="consulta.html" class="btn btn-primary btn-sm" style="margin-top: 0.8rem;">Consultar Status</a>
+                </div>
+            `;
+            this.reset();
+            document.getElementById('dadosIdentificacao').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-            mostrarMensagem(`<div class="alert alert-error">Erro: ${resultado.erro}</div>`);
+            document.getElementById('mensagem').innerHTML = `<div class="alert alert-error">❌ ${resultado.erro}</div>`;
         }
-    } catch (erro) {
-        mostrarMensagem('<div class="alert alert-error">Erro ao enviar denúncia. Verifique sua conexão.</div>');
+    } catch {
+        document.getElementById('mensagem').innerHTML = `<div class="alert alert-error">❌ Erro ao enviar. Verifique sua conexão.</div>`;
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Enviar Denúncia';
     }
 });
-
-function mostrarMensagem(html) {
-    document.getElementById('mensagem').innerHTML = html;
-    window.scrollTo(0, 0);
-}
