@@ -2,27 +2,16 @@ const API_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:3000/api'
   : '/api';
 
-<<<<<<< HEAD
 const token   = localStorage.getItem('token');
 const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
 
 if (!token) window.location.href = 'admin.html';
 
 document.getElementById('nomeUsuario').textContent = usuario.nome || 'Usuário';
-=======
-const token = localStorage.getItem('token');
-const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-
-if (!token) window.location.href = 'login.html';
-
-document.getElementById('nomeUsuario').textContent = usuario.nome || 'Usuário';
-document.getElementById('dataAtual').textContent = new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
 
 document.getElementById('btnLogout').addEventListener('click', () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
-<<<<<<< HEAD
     window.location.href = 'admin.html';
 });
 
@@ -34,22 +23,10 @@ const statusMap = {
     em_investigacao: { texto: 'Em Investigação', classe: 'badge-warning' },
     concluida:       { texto: 'Concluída',       classe: 'badge-success' },
     arquivada:       { texto: 'Arquivada',       classe: 'badge-gray' }
-=======
-    window.location.href = 'login.html';
-});
-
-const statusMap = {
-    aberta:          { texto: 'Aberta',          classe: 'badge-info' },
-    em_analise:      { texto: 'Em Análise',       classe: 'badge-warning' },
-    em_investigacao: { texto: 'Em Investigação',  classe: 'badge-warning' },
-    concluida:       { texto: 'Concluída',        classe: 'badge-success' },
-    arquivada:       { texto: 'Arquivada',        classe: 'badge-gray' }
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
 };
 
 const tipoMap = {
     assedio_moral:    'Assédio Moral',
-<<<<<<< HEAD
     saude_fisica:     'Saúde Física',
     saude_mental:     'Saúde Mental',
     condicao_insegura:'Condição Insegura',
@@ -70,32 +47,19 @@ const orgaosEncaminhamento = [
 
 // ── Estatísticas ─────────────────────────────────────────────────────────────
 
-=======
-    assedio_sexual:   'Assédio Sexual',
-    discriminacao:    'Discriminação',
-    condicao_insegura:'Condição Insegura',
-    risco_saude:      'Risco à Saúde',
-    outro:            'Outro'
-};
-
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
 async function carregarEstatisticas() {
     try {
         const response = await fetch(`${API_URL}/denuncias/estatisticas/dashboard`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
-<<<<<<< HEAD
 
         if (response.status === 401) { logout(); return; }
 
-=======
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
         const stats = await response.json();
 
         document.getElementById('estatisticas').innerHTML = `
             <div class="stat-card">
                 <span class="stat-icon">📋</span>
-<<<<<<< HEAD
                 <h3>${stats.total || 0}</h3>
                 <p>Total de Registros</p>
             </div>
@@ -107,30 +71,12 @@ async function carregarEstatisticas() {
             <div class="stat-card">
                 <span class="stat-icon">🟡</span>
                 <h3>${stats.em_analise || 0}</h3>
-=======
-                <h3>${stats.total}</h3>
-                <p>Total de Denúncias</p>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🔴</span>
-                <h3>${stats.abertas}</h3>
-                <p>Abertas</p>
-            </div>
-            <div class="stat-card">
-                <span class="stat-icon">🟡</span>
-                <h3>${stats.em_analise}</h3>
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
                 <p>Em Análise</p>
             </div>
             <div class="stat-card">
                 <span class="stat-icon">✅</span>
-<<<<<<< HEAD
                 <h3>${stats.concluidas || 0}</h3>
                 <p>Concluídos</p>
-=======
-                <h3>${stats.concluidas}</h3>
-                <p>Concluídas</p>
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
             </div>
         `;
     } catch (erro) {
@@ -138,52 +84,33 @@ async function carregarEstatisticas() {
     }
 }
 
-<<<<<<< HEAD
 // ── Listagem de registros ────────────────────────────────────────────────────
 
 async function carregarDenuncias(status = '', tipo = '', protocolo = '') {
-=======
-async function carregarDenuncias(status = '', tipo = '') {
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
     const lista = document.getElementById('listaDenuncias');
     lista.innerHTML = `<div class="empty-state"><div class="empty-icon">⏳</div><p>Carregando...</p></div>`;
 
     try {
         let url = `${API_URL}/denuncias?`;
-<<<<<<< HEAD
         if (status)    url += `status=${encodeURIComponent(status)}&`;
         if (tipo)      url += `tipo=${encodeURIComponent(tipo)}&`;
         if (protocolo) url += `protocolo=${encodeURIComponent(protocolo)}`;
-=======
-        if (status) url += `status=${status}&`;
-        if (tipo) url += `tipo=${tipo}`;
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
 
         const response = await fetch(url, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
-<<<<<<< HEAD
 
         if (response.status === 401) { logout(); return; }
 
         const denuncias = await response.json();
         document.getElementById('totalFiltrado').textContent =
             `${denuncias.length} registro${denuncias.length !== 1 ? 's' : ''}`;
-=======
-        const denuncias = await response.json();
-
-        document.getElementById('totalFiltrado').textContent = `${denuncias.length} registro${denuncias.length !== 1 ? 's' : ''}`;
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
 
         if (denuncias.length === 0) {
             lista.innerHTML = `
                 <div class="empty-state">
                     <div class="empty-icon">📭</div>
-<<<<<<< HEAD
                     <p>Nenhum registro encontrado com os filtros selecionados.</p>
-=======
-                    <p>Nenhuma denúncia encontrada com os filtros selecionados.</p>
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
                 </div>`;
             return;
         }
@@ -193,14 +120,9 @@ async function carregarDenuncias(status = '', tipo = '') {
                 <thead>
                     <tr>
                         <th>Protocolo</th>
-<<<<<<< HEAD
                         <th>Categoria</th>
                         <th>Título</th>
                         <th>Modalidade</th>
-=======
-                        <th>Tipo</th>
-                        <th>Setor</th>
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
                         <th>Status</th>
                         <th>Data</th>
                         <th>Ações</th>
@@ -209,7 +131,6 @@ async function carregarDenuncias(status = '', tipo = '') {
                 <tbody>
                     ${denuncias.map(d => `
                         <tr>
-<<<<<<< HEAD
                             <td style="font-family:monospace; font-weight:600; color:var(--primary); white-space:nowrap;">${d.protocolo}</td>
                             <td>${tipoMap[d.tipo] || d.tipo}</td>
                             <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escHtml(d.titulo || d.descricao)}">${escHtml(d.titulo || '—')}</td>
@@ -218,29 +139,12 @@ async function carregarDenuncias(status = '', tipo = '') {
                             <td style="color:var(--secondary); font-size:0.85rem; white-space:nowrap;">${new Date(d.data_registro).toLocaleDateString('pt-BR')}</td>
                             <td>
                                 <button class="btn btn-secondary btn-sm" onclick="abrirDetalhes(${d.id})" style="margin-top:0;">Ver / Gerir</button>
-=======
-                            <td style="font-family: monospace; font-weight: 600; color: var(--primary);">${d.protocolo}</td>
-                            <td>${tipoMap[d.tipo] || d.tipo}</td>
-                            <td style="color: var(--secondary);">${d.setor_envolvido || '—'}</td>
-                            <td><span class="badge ${statusMap[d.status]?.classe || 'badge-gray'}">${statusMap[d.status]?.texto || d.status}</span></td>
-                            <td style="color: var(--secondary); font-size: 0.85rem;">${new Date(d.data_registro).toLocaleDateString('pt-BR')}</td>
-                            <td>
-                                <select class="select-status" data-id="${d.id}" style="padding: 0.3rem 0.6rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.8rem; font-family: inherit; cursor: pointer;">
-                                    <option value="">Alterar status</option>
-                                    <option value="aberta">Aberta</option>
-                                    <option value="em_analise">Em Análise</option>
-                                    <option value="em_investigacao">Em Investigação</option>
-                                    <option value="concluida">Concluída</option>
-                                    <option value="arquivada">Arquivada</option>
-                                </select>
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
                             </td>
                         </tr>
                     `).join('')}
                 </tbody>
             </table>
         `;
-<<<<<<< HEAD
     } catch (erro) {
         lista.innerHTML = `<div class="alert alert-error" style="margin:1rem;">❌ Erro ao carregar registros.</div>`;
     }
@@ -367,22 +271,6 @@ async function atualizarStatus(id) {
     const sel = document.getElementById(`selectStatus_${id}`);
     if (!sel || !sel.value) return;
 
-=======
-
-        document.querySelectorAll('.select-status').forEach(select => {
-            select.addEventListener('change', async function () {
-                if (!this.value) return;
-                await atualizarStatus(this.dataset.id, this.value);
-            });
-        });
-
-    } catch (erro) {
-        lista.innerHTML = `<div class="alert alert-error" style="margin: 1rem;">❌ Erro ao carregar denúncias.</div>`;
-    }
-}
-
-async function atualizarStatus(id, status) {
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
     try {
         const response = await fetch(`${API_URL}/denuncias/${id}`, {
             method: 'PUT',
@@ -390,18 +278,13 @@ async function atualizarStatus(id, status) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-<<<<<<< HEAD
             body: JSON.stringify({ status: sel.value })
-=======
-            body: JSON.stringify({ status })
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
         });
 
         if (response.ok) {
             await carregarEstatisticas();
             await carregarDenuncias(
                 document.getElementById('filtroStatus').value,
-<<<<<<< HEAD
                 document.getElementById('filtroTipo').value,
                 document.getElementById('buscaProtocolo').value.trim()
             );
@@ -467,7 +350,6 @@ async function adicionarComentario(id) {
         if (response.ok) {
             textarea.value = '';
             msg.innerHTML  = `<span style="color:var(--success); font-size:0.85rem;">✅ Comentário adicionado.</span>`;
-            // Recarrega os comentários na lista
             const resTrat = await fetch(`${API_URL}/denuncias/${id}/tratativas`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -499,27 +381,12 @@ document.getElementById('btnFiltrar').addEventListener('click', () => {
         document.getElementById('filtroStatus').value,
         document.getElementById('filtroTipo').value,
         document.getElementById('buscaProtocolo').value.trim().toUpperCase()
-=======
-                document.getElementById('filtroTipo').value
-            );
-        }
-    } catch (erro) {
-        console.error('Erro ao atualizar status:', erro);
-    }
-}
-
-document.getElementById('btnFiltrar').addEventListener('click', () => {
-    carregarDenuncias(
-        document.getElementById('filtroStatus').value,
-        document.getElementById('filtroTipo').value
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
     );
 });
 
 document.getElementById('btnLimpar').addEventListener('click', () => {
-<<<<<<< HEAD
-    document.getElementById('filtroStatus').value  = '';
-    document.getElementById('filtroTipo').value    = '';
+    document.getElementById('filtroStatus').value   = '';
+    document.getElementById('filtroTipo').value     = '';
     document.getElementById('buscaProtocolo').value = '';
     carregarDenuncias();
 });
@@ -543,12 +410,5 @@ function logout() {
 }
 
 // ── Init ─────────────────────────────────────────────────────────────────────
-=======
-    document.getElementById('filtroStatus').value = '';
-    document.getElementById('filtroTipo').value = '';
-    carregarDenuncias();
-});
-
->>>>>>> d8679d82bb5a4133b8092739db6dc789b5b514dc
 carregarEstatisticas();
 carregarDenuncias();
