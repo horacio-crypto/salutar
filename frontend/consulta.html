@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALUTAR — Consultar Protocolo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Consultar Protocolo</h1>
+                <p>Acompanhe o status do seu registro</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary btn-sm">← Voltar</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="form-card" style="max-width: 620px;">
+            <div class="form-title">Consultar Ocorrência</div>
+            <div class="form-subtitle">Digite o número do protocolo recebido no momento do registro. Ex: <code style="font-family:monospace; color:var(--primary);">SAL-2026-8F4K2M9Q</code></div>
+
+            <form id="formConsulta" novalidate>
+                <div class="form-group">
+                    <label for="protocolo">Número do Protocolo</label>
+                    <input type="text" id="protocolo"
+                        placeholder="Ex: SAL-2026-8F4K2M9Q"
+                        required
+                        autocomplete="off"
+                        style="font-family: monospace; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase;">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">🔍 Consultar</button>
+                    <a href="index.html" class="btn btn-secondary">Voltar</a>
+                </div>
+            </form>
+
+            <div id="resultado"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><span>SALUTAR</span> — Canal de Registro de Denúncia</p>
+        </div>
+    </footer>
+
+    <script src="js/consulta.js"></script>
+</body>
+</html>

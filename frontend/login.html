@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALUTAR — Acesso Administrativo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Área Administrativa</h1>
+                <p>Acesso restrito à organização.</p>
+            </div>
+            <div class="header-actions"></div>
+        </div>
+    </header>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-logo">
+                <div class="brand">SALUTAR</div>
+                <p>Canal de Registro de Denúncia</p>
+            </div>
+
+            <div class="restricted-notice">
+                🔒 Acesso restrito à organização.
+            </div>
+
+            <div id="mensagem"></div>
+
+            <form id="formLogin">
+                <div class="form-group">
+                    <label>E-mail corporativo</label>
+                    <input type="email" id="email" placeholder="seu@email.com.br" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="senha" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top: 0.5rem;">
+                    Entrar
+                </button>
+            </form>
+
+            <div class="divider"></div>
+
+            <div style="text-align: center;">
+                <a href="index.html" style="color: var(--secondary); font-size: 0.85rem; text-decoration: none;">
+                    ← Voltar para página inicial
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p><span>SALUTAR</span> — Canal de Registro de Denúncia</p>
+        </div>
+    </footer>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

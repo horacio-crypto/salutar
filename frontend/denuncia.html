@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALUTAR — Canal de Registro de Denúncia</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">SALUTAR</a>
+            <div class="header-title">
+                <h1>Canal de Registro de Denúncia</h1>
+                <p>Preencha o formulário de forma segura e sigilosa</p>
+            </div>
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary btn-sm">← Voltar</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="mensagem"></div>
+
+        <!-- Etapa 1: Escolha da modalidade -->
+        <div id="etapaModalidade" class="form-card" style="max-width: 700px;">
+            <div class="form-title">Canal de Registro de Denúncia</div>
+            <div class="form-subtitle">Antes de iniciar seu registro, escolha como deseja se identificar. Ambas as modalidades são igualmente válidas e protegidas.</div>
+
+            <div class="modalidade-grid">
+                <button class="modalidade-card" id="btnAnonimo" onclick="escolherModalidade('anonimo')">
+                    <div class="modalidade-icon">👤</div>
+                    <h3>Registro Anônimo</h3>
+                    <p>Sua identidade <strong>não é coletada</strong> em nenhum momento. Nenhum dado pessoal, IP, e-mail ou identificador técnico é armazenado. O anonimato é preservado como direito.</p>
+                    <div class="modalidade-badge modalidade-badge--anonimo">Máxima privacidade</div>
+                </button>
+
+                <button class="modalidade-card" id="btnIdentificado" onclick="escolherModalidade('identificado')">
+                    <div class="modalidade-icon">✅</div>
+                    <h3>Registro Identificado</h3>
+                    <p>Você pode informar nome e e-mail <strong>de forma voluntária e opcional</strong>. Permite que a organização entre em contato, se necessário. Dados coletados com base legal adequada.</p>
+                    <div class="modalidade-badge modalidade-badge--identificado">Contato possível</div>
+                </button>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+                💡 Independentemente da modalidade escolhida, seu registro receberá um <strong>protocolo único</strong> para acompanhamento.
+            </div>
+        </div>
+
+        <!-- Etapa 2: Formulário de registro -->
+        <div id="etapaFormulario" class="form-card" style="display:none;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.5rem;">
+                <div class="form-title">Registrar Ocorrência</div>
+                <span id="badgeModalidade" class="badge"></span>
+            </div>
+            <div class="form-subtitle">Todos os campos marcados com * são obrigatórios. Sua ocorrência será tratada com total confidencialidade.</div>
+
+            <form id="formDenuncia" novalidate>
+                <input type="hidden" id="modalidade" value="">
+
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label for="empresa_id">Identificador da Organização *
+                            <span class="field-hint">Código numérico fornecido pela sua organização</span>
+                        </label>
+                        <input type="number" id="empresa_id" placeholder="Ex: 1" required min="1">
+                        <span class="field-error" id="err-empresa_id"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo">Categoria da Ocorrência *</label>
+                        <select id="tipo" required>
+                            <option value="">Selecione a categoria...</option>
+                            <option value="assedio_moral">Assédio Moral</option>
+                            <option value="saude_fisica">Saúde Física</option>
+                            <option value="saude_mental">Saúde Mental</option>
+                            <option value="condicao_insegura">Condição Insegura de Trabalho</option>
+                            <option value="outro">Outra</option>
+                        </select>
+                        <span class="field-error" id="err-tipo"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="setor_envolvido">Setor Envolvido</label>
+                        <input type="text" id="setor_envolvido" placeholder="Ex: Produção, Administrativo..." maxlength="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_ocorrencia">Data da Ocorrência</label>
+                        <input type="date" id="data_ocorrencia">
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="titulo">Título da Ocorrência *
+                            <span class="field-hint">Resumo breve do ocorrido (mín. 5 caracteres)</span>
+                        </label>
+                        <input type="text" id="titulo" placeholder="Ex: Situação de pressão excessiva no setor X" required minlength="5" maxlength="200">
+                        <span class="field-error" id="err-titulo"></span>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="descricao">Descrição da Ocorrência *
+                            <span class="field-hint">Descreva o ocorrido com detalhes (mín. 20 caracteres)</span>
+                        </label>
+                        <textarea id="descricao" required minlength="20" maxlength="5000"
+                            placeholder="Descreva detalhadamente o ocorrido, incluindo datas, locais e pessoas envolvidas..."></textarea>
+                        <span class="field-error" id="err-descricao"></span>
+                        <span class="char-counter" id="charCount">0 / 5000</span>
+                    </div>
+                </div>
+
+                <!-- Dados de identificação — visível apenas na modalidade identificada -->
+                <div id="dadosIdentificacao" class="identificacao-section" style="display:none;">
+                    <div class="section-label">📋 Dados de identificação — opcionais</div>
+                    <p style="font-size:0.85rem; color:var(--secondary); margin-bottom:1rem;">
+                        Estes campos são completamente opcionais. Preencha apenas o que desejar compartilhar.
+                    </p>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label for="denunciante_nome">Nome Completo <span style="color:var(--secondary); font-weight:400;">(opcional)</span></label>
+                            <input type="text" id="denunciante_nome" placeholder="Seu nome completo" maxlength="150">
+                        </div>
+                        <div class="form-group full">
+                            <label for="denunciante_email">E-mail <span style="color:var(--secondary); font-weight:400;">(opcional)</span></label>
+                            <input type="email" id="denunciante_email" placeholder="seu@email.com">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 1.5rem;">
+                    💡 Após o envio, você receberá um <strong>protocolo único</strong> para acompanhar o andamento do seu registro.
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="btnEnviar">Enviar Registro</button>
+                    <button type="button" class="btn btn-secondary" onclick="voltarModalidade()">← Alterar modalidade</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><span>SALUTAR</span> — Canal de Registro de Denúncia</p>
+        </div>
+    </footer>
+
+    <script src="js/denuncia.js"></script>
+</body>
+</html>
