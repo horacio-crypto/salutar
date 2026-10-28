@@ -1014,7 +1014,7 @@ footer span {
     margin-bottom: 0.2rem;
 }
 
-.modalidade-card h3 {
+.modalidade-card h2 {
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--dark);
@@ -1046,7 +1046,7 @@ footer span {
 
 .modalidade-badge--identificado {
     background: #ecfdf5;
-    color: #059669;
+    color: #047857;
     border: 1px solid #a7f3d0;
 }
 

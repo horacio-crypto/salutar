@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'chave_secreta_vercel_12345678901234567890';
+// Defina JWT_SECRET nas variáveis de ambiente da Vercel (Settings > Environment Variables).
+// O valor abaixo é apenas um fallback temporário e deve ser removido após configurar a variável.
+const JWT_SECRET = process.env.JWT_SECRET || 'chave_secreta_vercel_12345678901234567890';
 
 let denuncias = [];
 let usuarios = [
@@ -15,10 +17,13 @@ let usuarios = [
   }
 ];
 
+// Mesmo formato do backend Express: SAL-AAAA-XXXXXXXX (não sequencial, sem caracteres ambíguos)
 const gerarProtocolo = () => {
-  const data = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-  return `DEN${data}${random}`;
+  const ano = new Date().getFullYear();
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let sufixo = '';
+  for (let i = 0; i < 8; i++) sufixo += chars[Math.floor(Math.random() * chars.length)];
+  return `SAL-${ano}-${sufixo}`;
 };
 
 module.exports = async (req, res) => {
@@ -59,18 +64,20 @@ module.exports = async (req, res) => {
     }
 
     if (method === 'POST' && path === '/denuncias') {
-      const { tipo, descricao, anonima, denunciante_nome, denunciante_email, denunciante_telefone, setor_envolvido, data_ocorrencia, empresa_id } = req.body;
+      const { tipo, titulo, descricao, anonima, denunciante_nome, denunciante_email, setor_envolvido, data_ocorrencia, empresa_id } = req.body;
+      const isAnonima = anonima === true || anonima === 'true';
       
       const denuncia = {
         id: denuncias.length + 1,
         empresa_id: empresa_id || 1,
         protocolo: gerarProtocolo(),
         tipo,
+        titulo,
         descricao,
-        anonima: anonima !== false,
-        denunciante_nome: anonima ? null : denunciante_nome,
-        denunciante_email: anonima ? null : denunciante_email,
-        denunciante_telefone: anonima ? null : denunciante_telefone,
+        anonima: isAnonima,
+        // registros anônimos nunca guardam dados pessoais
+        denunciante_nome: isAnonima ? null : (denunciante_nome || null),
+        denunciante_email: isAnonima ? null : (denunciante_email || null),
         setor_envolvido,
         data_ocorrencia,
         status: 'aberta',
@@ -79,7 +86,8 @@ module.exports = async (req, res) => {
       };
       
       denuncias.push(denuncia);
-      return res.status(201).json(denuncia);
+      // devolve só o necessário para a tela de confirmação
+      return res.status(201).json({ protocolo: denuncia.protocolo, status: denuncia.status, data_registro: denuncia.data_registro });
     }
 
     if (method === 'GET' && path.startsWith('/denuncias/protocolo/')) {
@@ -90,7 +98,9 @@ module.exports = async (req, res) => {
         return res.status(404).json({ erro: 'Denúncia não encontrada' });
       }
       
-      return res.json(denuncia);
+      // consulta pública: apenas campos não sensíveis (sem descrição, nome, e-mail ou encaminhamento)
+      const { tipo, anonima, status, data_registro } = denuncia;
+      return res.json({ protocolo: denuncia.protocolo, tipo, anonima, status, data_registro, data_atualizacao: denuncia.data_atualizacao || data_registro });
     }
 
     if (method === 'GET' && path === '/denuncias/estatisticas/dashboard') {

@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'chave_secreta_netlify_12345678901234567890';
+// Defina JWT_SECRET nas variáveis de ambiente da Netlify (Site configuration > Environment variables).
+// O valor abaixo é apenas um fallback temporário e deve ser removido após configurar a variável.
+const JWT_SECRET = process.env.JWT_SECRET || 'chave_secreta_netlify_12345678901234567890';
 
 let denuncias = [];
 let usuarios = [{
@@ -13,10 +15,13 @@ let usuarios = [{
   empresa_id: 1
 }];
 
+// Mesmo formato do backend Express: SAL-AAAA-XXXXXXXX (não sequencial, sem caracteres ambíguos)
 const gerarProtocolo = () => {
-  const data = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-  return `DEN${data}${random}`;
+  const ano = new Date().getFullYear();
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let sufixo = '';
+  for (let i = 0; i < 8; i++) sufixo += chars[Math.floor(Math.random() * chars.length)];
+  return `SAL-${ano}-${sufixo}`;
 };
 
 exports.handler = async (event) => {
@@ -54,16 +59,18 @@ exports.handler = async (event) => {
     }
 
     if (method === 'POST' && path === '/denuncias') {
+      const isAnonima = body.anonima === true || body.anonima === 'true';
       const denuncia = {
         id: denuncias.length + 1,
         empresa_id: body.empresa_id || 1,
         protocolo: gerarProtocolo(),
         tipo: body.tipo,
+        titulo: body.titulo,
         descricao: body.descricao,
-        anonima: body.anonima !== false,
-        denunciante_nome: body.anonima ? null : body.denunciante_nome,
-        denunciante_email: body.anonima ? null : body.denunciante_email,
-        denunciante_telefone: body.anonima ? null : body.denunciante_telefone,
+        anonima: isAnonima,
+        // registros anônimos nunca guardam dados pessoais
+        denunciante_nome: isAnonima ? null : (body.denunciante_nome || null),
+        denunciante_email: isAnonima ? null : (body.denunciante_email || null),
         setor_envolvido: body.setor_envolvido,
         data_ocorrencia: body.data_ocorrencia,
         status: 'aberta',
@@ -72,7 +79,8 @@ exports.handler = async (event) => {
       };
       
       denuncias.push(denuncia);
-      return { statusCode: 201, headers, body: JSON.stringify(denuncia) };
+      // devolve só o necessário para a tela de confirmação
+      return { statusCode: 201, headers, body: JSON.stringify({ protocolo: denuncia.protocolo, status: denuncia.status, data_registro: denuncia.data_registro }) };
     }
 
     if (method === 'GET' && path.startsWith('/denuncias/protocolo/')) {
@@ -83,7 +91,9 @@ exports.handler = async (event) => {
         return { statusCode: 404, headers, body: JSON.stringify({ erro: 'Denúncia não encontrada' }) };
       }
       
-      return { statusCode: 200, headers, body: JSON.stringify(denuncia) };
+      // consulta pública: apenas campos não sensíveis (sem descrição, nome, e-mail ou encaminhamento)
+      const publico = { protocolo: denuncia.protocolo, tipo: denuncia.tipo, anonima: denuncia.anonima, status: denuncia.status, data_registro: denuncia.data_registro, data_atualizacao: denuncia.data_atualizacao || denuncia.data_registro };
+      return { statusCode: 200, headers, body: JSON.stringify(publico) };
     }
 
     if (method === 'GET' && path === '/denuncias/estatisticas/dashboard') {
