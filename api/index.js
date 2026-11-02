@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
   }
 
   const { method, url } = req;
-  const path = url.replace('/api', '');
+  const path = url.replace(/^\/api/, '').split('?')[0];
 
   try {
     if (method === 'GET' && path === '/health') {
