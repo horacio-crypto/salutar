@@ -1,9 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Defina JWT_SECRET nas variáveis de ambiente da Vercel (Settings > Environment Variables).
-// O valor abaixo é apenas um fallback temporário e deve ser removido após configurar a variável.
-const JWT_SECRET = process.env.JWT_SECRET || 'chave_secreta_vercel_12345678901234567890';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 let denuncias = [];
 let usuarios = [

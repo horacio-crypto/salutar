@@ -1,9 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Defina JWT_SECRET nas variáveis de ambiente da Netlify (Site configuration > Environment variables).
-// O valor abaixo é apenas um fallback temporário e deve ser removido após configurar a variável.
-const JWT_SECRET = process.env.JWT_SECRET || 'chave_secreta_netlify_12345678901234567890';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 let denuncias = [];
 let usuarios = [{
