@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = 3000;
-const JWT_SECRET = 'chave_secreta_temporaria_para_testes_12345678';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors());
 app.use(express.json());
