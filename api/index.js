@@ -34,8 +34,7 @@ module.exports = async (req, res) => {
   }
 
   const { method, url } = req;
-  const urlObj = new URL(url, 'http://localhost');
-  const path = urlObj.searchParams.get('path') || urlObj.pathname.replace(/^\/api/, '').split('?')[0];
+  const path = url.replace(/^\/api/, '').split('?')[0] || '/';
 
   try {
     if (method === 'GET' && path === '/health') {
