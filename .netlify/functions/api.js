@@ -34,7 +34,8 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers, body: '' };
   }
 
-  const path = event.path.replace('/.netlify/functions/api', '');
+  const rawPath = event.headers['x-netlify-original-pathname'] || event.rawUrl?.replace(/^https?:\/\/[^/]+/, '') || event.path;
+  const path = rawPath.replace(/^\/api/, '').split('?')[0] || '/';
   const method = event.httpMethod;
   const body = event.body ? JSON.parse(event.body) : {};
 
